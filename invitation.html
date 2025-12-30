@@ -2,98 +2,85 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Wedding Invitation</title>
+<title>The Wedding</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link id="fontLink" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family:var(--font,Poppins);
-  background-size:cover;
-  background-position:center;
+  font-family:Poppins;
+  background:url("assets/bg.jpg") center/cover fixed no-repeat;
+  color:#333;
 }
-section{text-align:center;padding:60px 20px}
-.card{
+.overlay{
   background:rgba(255,255,255,.92);
   max-width:900px;
-  margin:30px auto;
-  padding:40px;
-  border-radius:16px;
+  margin:auto;
+}
+section{
+  padding:80px 20px;
+  text-align:center;
+}
+h1,h2{
+  font-family:"Playfair Display";
 }
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
   gap:15px;
 }
-.gallery img{width:100%;border-radius:10px}
+.gallery img{
+  width:100%;
+  border-radius:12px;
+}
 </style>
 </head>
 
 <body>
-<audio id="music" autoplay loop></audio>
+
+<audio autoplay loop>
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay">
 
 <section>
   <p id="guest"></p>
-  <h1 id="couple"></h1>
-  <p id="date"></p>
+  <h1>Samuel & Esther</h1>
+  <p>01 Februari 2025</p>
 </section>
 
 <section>
-  <div class="card">
-    <em id="verse"></em>
-    <p id="verseSource"></p>
-  </div>
+  <em>
+    “Demikianlah mereka bukan lagi dua, melainkan satu.”
+  </em>
+  <p>Matius 19:6</p>
 </section>
 
 <section>
-  <div class="card">
-    <h2>Save The Date</h2>
-    <p id="event"></p>
-    <p id="location"></p>
-  </div>
+  <h2>Save The Date</h2>
+  <p>Pemberkatan: 10.00 WIB</p>
+  <p>Gereja XYZ, Jakarta</p>
 </section>
 
 <section>
-  <div class="card">
-    <h2>Gallery</h2>
-    <div class="gallery" id="gallery"></div>
+  <h2>Gallery</h2>
+  <div class="gallery">
+    <img src="assets/photo1.jpg">
+    <img src="assets/photo1.jpg">
+    <img src="assets/photo1.jpg">
   </div>
 </section>
+
+</div>
 
 <script>
-const data = JSON.parse(localStorage.getItem("weddingData")) || {};
 const params = new URLSearchParams(window.location.search);
-
 guest.innerText = params.get("to")
   ? "Kepada Yth. " + decodeURIComponent(params.get("to"))
   : "";
-
-couple.innerText = data.couple || "";
-date.innerText = data.date || "";
-verse.innerText = data.verse || "";
-verseSource.innerText = data.verseSource || "";
-event.innerHTML = data.event || "";
-location.innerHTML = data.location || "";
-
-if(data.bgColor) document.body.style.backgroundColor = data.bgColor;
-if(data.bgImage) document.body.style.backgroundImage = `url(${data.bgImage})`;
-
-if(data.font){
-  document.documentElement.style.setProperty('--font',data.font);
-  fontLink.href = data.fontLink;
-}
-
-if(data.music){
-  music.src = data.music;
-  music.volume = 0.5;
-}
-
-(data.photos || []).forEach(p=>{
-  const img=document.createElement("img");
-  img.src=p;
-  gallery.appendChild(img);
-});
 </script>
+
 </body>
 </html>

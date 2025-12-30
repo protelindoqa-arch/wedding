@@ -39,10 +39,21 @@ h1,h2{
 
 <body>
 
+<!-- BACKGROUND MUSIC -->
 <audio autoplay loop>
   <source src="https://res.cloudinary.com/dfnf2vdq1/video/upload/v1767085751/pra_ontcbm.mp3" type="audio/mpeg">
 </audio>
 
+<!-- AUTOPLAY FIX -->
+  <script>
+    document.addEventListener("click", function () {
+      const audio = document.getElementById("bg-music");
+      if (audio.paused) {
+        audio.play();
+      }
+    }, { once: true });
+  </script>  
+  
 <div class="overlay">
 
 <section>
@@ -84,4 +95,5 @@ guest.innerText = params.get("to")
 
 </body>
 </html>
+
 

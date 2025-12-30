@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Invitation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins;
+  background:#f9f7f6;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card{
+  background:#fff;
+  padding:60px 40px;
+  text-align:center;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+h1{font-family:Playfair Display;font-size:42px}
+button{
+  margin-top:30px;
+  padding:12px 40px;
+  border:none;
+  background:#c9a24d;
+  color:#fff;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <p>The Wedding of</p>
+  <h1 id="couple">Samuel & Esther</h1>
+  <p id="date">01 • 02 • 2025</p>
+
+  <p>Kepada Yth.</p>
+  <h3 id="guest">Bapak/Ibu/Saudara/i</h3>
+
+  <button onclick="openInvite()">Open Invitation</button>
+</div>
+
+<script>
+const data = JSON.parse(localStorage.getItem("weddingData")) || {};
+if(data.couple) couple.innerText = data.couple;
+if(data.date) date.innerText = data.date;
+
+const params = new URLSearchParams(window.location.search);
+guest.innerText = params.get("to")
+  ? decodeURIComponent(params.get("to"))
+  : (data.guestName || "Bapak/Ibu/Saudara/i");
+
+function openInvite(){
+  window.location.href = "invitation.html" + window.location.search;
+}
+</script>
+</body>
+</html>

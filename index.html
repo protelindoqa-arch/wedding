@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Invitation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link id="fontLink" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family:var(--font,Poppins);
+  background-size:cover;
+  background-position:center;
+  color:#333;
+}
+section{padding:60px 20px;text-align:center}
+.card{
+  background:rgba(255,255,255,.92);
+  max-width:900px;margin:30px auto;
+  padding:40px;border-radius:16px
+}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:15px
+}
+.gallery img{width:100%;border-radius:10px}
+</style>
+</head>
+<body>
+
+<audio id="music" autoplay loop></audio>
+
+<section>
+  <p id="guest"></p>
+  <h1 id="couple"></h1>
+  <p id="date"></p>
+</section>
+
+<section>
+  <div class="card">
+    <em id="verse"></em>
+    <p id="verseSource"></p>
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <h2>Save The Date</h2>
+    <p id="event"></p>
+    <p id="location"></p>
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <h2>Gallery</h2>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<script>
+const data = JSON.parse(localStorage.getItem("weddingData")) || {};
+const params = new URLSearchParams(window.location.search);
+const guestUrl = params.get("to");
+
+guest.innerText = guestUrl
+  ? "Kepada Yth. " + decodeURIComponent(guestUrl)
+  : "";
+
+couple.innerText = data.couple || "";
+date.innerText = data.date || "";
+verse.innerText = data.verse || "";
+verseSource.innerText = data.verseSource || "";
+event.innerHTML = data.event || "";
+location.innerHTML = data.location || "";
+
+if(data.bgColor) document.body.style.backgroundColor = data.bgColor;
+if(data.bgImage) document.body.style.backgroundImage = `url(${data.bgImage})`;
+
+if(data.font){
+  document.documentElement.style.setProperty('--font',data.font);
+  fontLink.href = data.fontLink;
+}
+
+if(data.music){
+  music.src = data.music;
+  music.volume = 0.5;
+}
+
+if(data.photos){
+  data.photos.forEach(p=>{
+    const img=document.createElement("img");
+    img.src=p;gallery.appendChild(img);
+  });
+}
+</script>
+
+</body>
+</html>
